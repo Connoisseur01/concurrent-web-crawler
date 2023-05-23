@@ -1,20 +1,29 @@
+import threading
 import requests
 from bs4 import BeautifulSoup
-import threading
 
 class Scraper(threading.Thread):
-    def __init__(self, url):
+    def __init__(self, links, lock, data):
         threading.Thread.__init__(self)
-        self.url = url
+        self.links = links
+        self.lock = lock
+        self.data = data
 
     def run(self):
-        # Get the HTML content of the URL
-        response = requests.get(self.url)
-        html = response.content
+        while len(self.links) > 0:
+            with self.lock:
+                link = self.links.pop(0)
+            # Make a GET request to the website
+            response = requests.get(link, timeout=10)
+            # Parse the HTML content using BeautifulSoup
+            soup = BeautifulSoup(response.content, 'html.parser')
 
-        # Parse the HTML content using Beautiful Soup
-        soup = BeautifulSoup(html, 'html.parser')
-
-        # Find all the links on the page and print them
-        for link in soup.find_all('a'):
-            print(link.get('href'))
+            # Find the relevant information on the page
+            product_name = soup.find("h1", class_="product_title").text
+            product_price = soup.find("span", class_="price").text
+            product_description = \
+            soup.find("div", class_="woocommerce-product-details__short-description").text.strip()
+            stock = soup.find("p", class_ = "stock").text
+            self.data.append([product_name, product_price, product_description, stock])
+            print(product_name, product_price, stock)
+            

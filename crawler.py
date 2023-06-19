@@ -3,6 +3,23 @@ import requests
 from bs4 import BeautifulSoup
 
 class Crawler(threading.Thread):
+    """
+    parse html content of shop subpages and save individual product links
+
+    Attributes
+    ----------
+    pages : list
+        shop subpages
+    links : list
+        individual product pages links
+    locks : list
+        list of locks
+
+    Methods
+    -------
+    start():
+        starts a thread by calling the run method
+    """
     def __init__(self, pages, links, locks):
         threading.Thread.__init__(self)
         self.pages = pages
@@ -21,7 +38,6 @@ class Crawler(threading.Thread):
             # Find all the links on the page and print them
             for link in \
                 soup.find_all(class_='woocommerce-LoopProduct-link woocommerce-loop-product__link'):
-                
+
                 with self.locks[1]:
                     self.links.append(link.get('href'))
-

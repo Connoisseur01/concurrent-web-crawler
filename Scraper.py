@@ -3,6 +3,23 @@ import requests
 from bs4 import BeautifulSoup
 
 class Scraper(threading.Thread):
+    """
+    parse html from product links to extract and save relevant data
+
+    Attributes
+    ----------
+    links : list
+        individual product pages links
+    locks : list
+        list of locks
+    data : list
+        list where scraped data is saved
+
+    Methods
+    -------
+    start():
+        starts a thread by calling the run method
+    """
     def __init__(self, links, lock, data):
         threading.Thread.__init__(self)
         self.links = links
@@ -24,6 +41,7 @@ class Scraper(threading.Thread):
             product_description = \
             soup.find("div", class_="woocommerce-product-details__short-description").text.strip()
             stock = soup.find("p", class_ = "stock").text
+
+            # save information to data list
             self.data.append([product_name, product_price, product_description, stock])
             print(product_name, product_price, stock)
-            

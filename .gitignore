@@ -1,0 +1,4 @@
+*.pyc
+*.png
+/_pycache_
+*csv

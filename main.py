@@ -55,13 +55,13 @@ def run_threading(pages_num, crawlers_num, scrapers_num, filename):
 
 if __name__ == '__main__':
 
-    pages_num = int(input("number of subpages to scrape: "))
-    crawlers_num = int(input("number of crawler threads: "))
-    scrapers_num = int(input("number of scraper threads: "))
-    filename = input("file name: ")
+    pagesnum = int(input("number of subpages to scrape: "))
+    crawlersnum = int(input("number of crawler threads: "))
+    scrapersnum = int(input("number of scraper threads: "))
+    file_name = input("file name: ")
 
     start = time.time()
-    run_threading(pages_num, crawlers_num, scrapers_num, filename)
+    run_threading(pagesnum, crawlersnum, scrapersnum, file_name)
     end = time.time()
     elapsed = end - start
     print(f"\nscraping complited in {elapsed:.2f} seconds")

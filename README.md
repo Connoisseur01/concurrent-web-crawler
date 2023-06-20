@@ -21,4 +21,4 @@ Two mutex lock objects are created to synchronise access to these lists by threa
 
 user can specify number of subpages to scrape, number of crawler threads, number of scraper threads and a file to which results will be saved
 
-![Alt text](crawler_cli.png)
+![Alt text](example.png)

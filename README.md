@@ -16,3 +16,9 @@ there are two lists that threads need to share access to:
 * *links* - stores individual product pages links
 
 Two mutex lock objects are created to synchronise access to these lists by threads. When a thread writes or reads data from these lists it acquires respective lock and releases it after the operation. If a thread wants to acquire a lock thats already in use it will wait for it to release.
+
+### user input
+
+user can specify number of subpages to scrape, number of crawler threads, number of scraper threads and a file to which results will be saved
+
+![Alt text](crawler_cli.png)
